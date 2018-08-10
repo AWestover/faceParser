@@ -1,9 +1,9 @@
 
 Webcam.set({
-  width: 300, 
-  height: 300,
+  width: 256, 
+  height: 256,
   image_format: "jpeg",
-  jpeg_quality: 90
+  jpeg_quality: 75
 });
 
 Webcam.attach('#webcam');
