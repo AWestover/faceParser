@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<div class="container">
+  <h1>face parser</h1>
+  <br><br>
+  <h2>Webcam view</h2>
+  <div id="webcam"></div>
+  <button class="btn btn-lg" onclick='takeScreenshot()'>Take pic</button>
+  <br><br>
+  <div id="results"></div>
+  <div class="well">
+    <h3>Are you disatisfied with your face?</h3>
+    <p>
+      <!-- Do you have self esteem issues or depression? -->
+      <!-- Well I certainly hope not. -->
+      <!-- This is incredibly weird and probably insensitive. -->
+      <!-- Why on earth did I write this? -->
+      If you are unable to face the reality of your countenance then this program is for you.
+      Choose a number of colors for the kmeans algorithm to use, take a picture and await a beautiful transformation.
+    </p>
+  </div>
+  <div class="well">
+    <h3>Some things you should note:</h3>
+    <ul>
+      <li>I do not store these images anywhere. 
+        They are transmited to a backend python image processing program that I made as base64 strings
+        and passed back to the frontend for display in a like matter with NO file I/O</li>
+      <li>Kmeans is a pretty cool algorithm. I cluster the colors in the picture you take and then I recolor the clusters.
+        In the clustering I basically search through a 3 dimensional color space (RGB) for points that are "centerpoints" for certain groups of the colors in the picture.
+        These points (a color is represented by a 3 dimensional vector, or a point in 3d space) are sequentially updated until they become locally optimal fits to the color data's midpoints.</li>
+    </ul>
+  </div>
+  <p>Num colors</p>
+  <input type="range" min="3" max="15" value="5" class="slider" id="num_colors">
+  
+  <h2>Output pictures</h2>
+  <div id="output_pics"></div>
+  
+</div>
+<script src="{{ url_for('static', filename='sketch.js') }}"></script>
+{% endblock %}

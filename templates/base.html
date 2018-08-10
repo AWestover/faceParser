@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Face Parser</title>
+    
+    <script src="{{ url_for('static', filename='libs/webcam.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='libs/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='libs/notify.js') }}"></script>
+    <script src="{{ url_for('static', filename='libs/bootstrap.min.js') }}"></script>
+    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='libs/bootstrap.min.css') }}">
+    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+  </body>
+</html>
