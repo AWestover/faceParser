@@ -1,6 +1,13 @@
 # description
 a flask app to take a weird picture and then display it to the user
 
+Heroku site at:
+https://face-color.herokuapp.com/
+
+
+* flask is for the backend 
+* js/html/css is for the frontend
+
 # note
 there is no file IO so it should be easy to deploy to heroku...
 but for now
