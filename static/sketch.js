@@ -33,6 +33,7 @@ function takeScreenshot()
           $.notify("Your face has arrived", "success");
           let newImgHTML = "<div id='img_"+img_ct+"'>";
           newImgHTML += "<img width='90%' src='" + data.path + "'>";
+          newImgHTML += "<br>";
           newImgHTML += "<button onclick='$(\"#img_"+img_ct+"\").remove();'>Delete image</button>"
           newImgHTML += "<a href='"+data.path+"' download='weird-face.png'>";
           newImgHTML += "<button class='btn'>Download image</button></a>"
