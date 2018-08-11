@@ -59,7 +59,7 @@ def getImgMids(imgObject, k):
 	return fitpts
 
 def imgRecolor(imgObject, numColors):
-	img = imgObject
+	img = imgObject.resize((256, 256), Image.ANTIALIAS)
 	mids = getImgMids(imgObject, numColors)
 	mids = mids.astype(int)
 
