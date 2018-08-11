@@ -2,6 +2,12 @@
 let dim = Math.min(window.innerWidth*0.5, window.innerHeight*0.5);
 let img_ct = 0;
 
+if (window.location.href.indexOf('https') == -1 && window.location.href.indexOf('localhost') == -1)
+{
+    console.log("redirect to https so that I can use webcam");
+    window.location.href = window.location.href.replace('http', 'https');
+}
+
 Webcam.set({
   width: dim,
   height: dim,
