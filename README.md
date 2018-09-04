@@ -10,11 +10,10 @@ https://face-color.herokuapp.com/
 
 # note
 there is no file IO so it should be easy to deploy to heroku...
-but for now
-
+but it wasn't too easy so here is an OK temporary solution:
 `ssh -R 80:localhost:3000 ssh.localhost.run`
 
-will work to share it.
+I eventually got it on heroku but I think heroku has lots of git problems
 
 Also I could probably translate the code into js...  but thats no fun
 
