@@ -10,6 +10,10 @@
   <div class="container well">
     <form id="uploadForm" action="/fileUpload" enctype="multipart/form-data" method="POST">
       <input type="file" name="pic" accept="image/*" multiple="false">
+      <p>Num colors</p> <output id="num_colors_displayFile">5</output>
+      <input name="num_colorsFile" type="range" min="2" max="8" value="5" class="slider" id="num_colorsFile" oninput="num_colors_displayFile.value = num_colorsFile.value">
+      <label>Would you like to flip the image?</label><input name="flip" type="checkbox">
+      <br>
       <input type="submit">
     </form>
   </div>

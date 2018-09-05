@@ -31,9 +31,15 @@ def upload():
 
 @app.route('/fileUpload', methods=("POST",))
 def fileUpload():
+    print(request.values)
     ff = request.files['pic'].read()
     img = Image.open(BytesIO(ff))
-    NUMCOLORS = 5
+    try:
+        if request.values['flip'] == "on":
+            img = img.transpose(Image.FLIP_LEFT_RIGHT)
+    except:
+        pass
+    NUMCOLORS = int(request.values['num_colorsFile'])
     img_str = imgRecolor(img, NUMCOLORS).decode("utf-8")
     res_uri = 'data:image/jpeg;base64,' + img_str
     
