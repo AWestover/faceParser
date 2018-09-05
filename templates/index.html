@@ -7,6 +7,11 @@
   <h2>Webcam view</h2>
   <div id="webcam"></div>
   <button class="btn btn-lg" onclick='takeScreenshot()'>Take pic</button>
+  <div class="well">
+    <p>Num colors</p> <output id="num_colors_display">5</output>
+    <input type="range" min="2" max="8" value="5" class="slider" id="num_colors" oninput="num_colors_display.value = num_colors.value">
+  </div>
+  <br><br>
   <div class="container well">
     <form id="uploadForm" action="/fileUpload" enctype="multipart/form-data" method="POST">
       <input type="file" name="pic" accept="image/*" multiple="false">
@@ -44,15 +49,15 @@
         These points (a color is represented by a 3 dimensional vector, or a point in 3d space) are sequentially updated until they become locally optimal fits to the color data's midpoints.</li>
     </ul>
   </div>
-  
-  <div class="well">
-    <p>Num colors</p> <output id="num_colors_display">5</output>
-    <input type="range" min="2" max="8" value="5" class="slider" id="num_colors" oninput="num_colors_display.value = num_colors.value">
-  </div>
    
   <h2>Output pictures</h2>
   <div id="output_pics"></div>
-  
+
+  <div class="well">
+    <h1>You can use this picture in theland as an avatar!!!</h1>
+    <a class="btn btn-lg" href="https://theland.herokuapp.com">theland</a>
+  </div>
+
 </div>
 <script src="{{ url_for('static', filename='sketch.js') }}"></script>
 {% endblock %}
