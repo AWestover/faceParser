@@ -12,10 +12,12 @@ from recolor import *
 
 # create and configure the app
 app = Flask(__name__)
-    
+
+lastPictureString = ""
+
 @app.route('/')
-def index():
-    return render_template('index.html')
+def index(path=""):
+    return render_template('index.html', path="")
 
 @app.route('/upload', methods=("POST",))
 def upload():
@@ -26,9 +28,26 @@ def upload():
     res_uri = imgRecolor(im, NUMCOLORS).decode('utf-8')
     res_uri = 'data:image/jpeg;base64,' + res_uri
     return jsonify({"path": res_uri})
-        
-    return app
 
+@app.route('/fileUpload', methods=("POST",))
+def fileUpload():
+    ff = request.files['pic'].read()
+    img = Image.open(BytesIO(ff))
+    NUMCOLORS = 5
+    img_str = imgRecolor(img, NUMCOLORS).decode("utf-8")
+    res_uri = 'data:image/jpeg;base64,' + img_str
+    
+    global lastPictureString
+    lastPictureString = res_uri
+    return redirect(url_for("index"))
+
+
+@app.route('/checkForUpdate', methods=('POST',))
+def checkForUpdate():
+    global lastPictureString
+    tmp = lastPictureString
+    lastPictureString = ""
+    return jsonify({"path": tmp})
 
 if __name__ == "__main__":
   app.run(debug=True, use_reloader=True)

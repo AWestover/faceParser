@@ -15,6 +15,34 @@ Webcam.set({
   jpeg_quality: 90
 });
 
+function handleNewImage(img_src) {
+  let loaders = $('.loader');
+  for (let i = 0; i < loaders.length; i++) {
+    loaders[0].remove();
+  }
+  img_ct += 1;
+  let newImgHTML = "<div id='img_"+img_ct+"'>";
+  newImgHTML += "<img width='90%' src='" + img_src + "'>";
+  newImgHTML += "<br>";
+  newImgHTML += "<button onclick='$(\"#img_"+img_ct+"\").remove();'>Delete image</button>";
+  newImgHTML += "<a href='"+img_src+"' download='weird-face.png'>";
+  newImgHTML += "<button class='btn'>Download image</button></a>";
+  newImgHTML += "<button onclick=copyImgUrl('"+img_ct+"') data-clipboard-text='test' class='btn'>Copy img url (warning: it is really long)</button>";
+  newImgHTML += "</div>";
+  $.notify("Your picture has arrived", "success");
+  $("#output_pics").append(newImgHTML);
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+function copyImgUrl(img_ct) {
+  $.notify('image url copied for image '+ img_ct, 'success');
+  let tmp = $('#img_'+img_ct + " img")[0].src;
+  $('#main-container').append("<textarea id='textarea'"+img_ct+">"+tmp+"</textarea>");
+
+  $('#textarea').select();
+  document.execCommand('copy');
+}
+
 Webcam.attach('#webcam');
 function takeScreenshot()
 {
@@ -22,24 +50,16 @@ function takeScreenshot()
   Webcam.snap(function(data_uri){
     $('#results').html('<img src='+data_uri+'>');
     $('body').prepend('<div class="loader"></div>');
-    $.post("/upload", {"data_uri": data_uri, "num_colors": $('#num_colors').val()}, function(data)
-      {
-          img_ct += 1;
-          let loaders = $('.loader');
-          for (let i = 0; i < loaders.length; i++)
-          {
-            loaders[0].remove();
-          }
-          $.notify("Your face has arrived", "success");
-          let newImgHTML = "<div id='img_"+img_ct+"'>";
-          newImgHTML += "<img width='90%' src='" + data.path + "'>";
-          newImgHTML += "<br>";
-          newImgHTML += "<button onclick='$(\"#img_"+img_ct+"\").remove();'>Delete image</button>"
-          newImgHTML += "<a href='"+data.path+"' download='weird-face.png'>";
-          newImgHTML += "<button class='btn'>Download image</button></a>"
-          newImgHTML += "</div>";    
-          $("#output_pics").append(newImgHTML);
-          window.scrollTo(0, document.body.scrollHeight);
+    $.post("/upload", {"data_uri": data_uri, "num_colors": $('#num_colors').val()}, function(data) {
+          handleNewImage(data.path);   
       });
   });
 }
+
+$.post('/checkForUpdate', function(data) {
+  console.log(data);
+  if (data && data.path) {
+    handleNewImage(data.path);
+  }
+});
+
