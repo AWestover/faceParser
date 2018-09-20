@@ -1,5 +1,6 @@
 # description
 a flask app to take a weird picture and then display it to the user
+<img src="face-color.png">
 
 # note: 
 I am pretty sure that some of the things I do here are bad practice
